@@ -1,0 +1,10 @@
+ru/dzhager3354/Drawable.java
+ ru.dzhager3354.Drawable
+ru/dzhager3354/core/LogicalElement.java
+ ru.dzhager3354.core.LogicalElement
+ru/dzhager3354/Square.java
+ ru.dzhager3354.Square
+ru/dzhager3354/core/Line.java
+ ru.dzhager3354.core.Line
+ru/dzhager3354/Main.java
+ ru.dzhager3354.Main
