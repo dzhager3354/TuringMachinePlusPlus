@@ -70,13 +70,12 @@ public class Layer implements Drawable {
             xPixel = x;
             yPixel = y;
         }
-//        System.out.println(String.format("%f %f %f %f %f %f", divX, divY, xOffset, yOffset, x, y));
     }
 
     public void drawHover() {
         if (isMousePressed) return;
-        double divX = main.getCursorX()-250;
-        double divY = 250-main.getCursorY();
+        double divX = 0;//main.getCursorX()-250;
+        double divY = 0;// 250-main.getCursorY();
         double xConvert = (divX/500)*2/scale;
         double yConvert = (divY/500)*2/scale;
 
