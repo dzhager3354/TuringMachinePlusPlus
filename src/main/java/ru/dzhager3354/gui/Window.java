@@ -7,7 +7,7 @@ import org.lwjgl.system.MemoryStack;
 import ru.dzhager3354.Square;
 import ru.dzhager3354.core.Line;
 import ru.dzhager3354.gui.elements.Drawable;
-import ru.dzhager3354.gui.scene.NewLayer;
+import ru.dzhager3354.gui.scene.Layer;
 
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class Window implements Drawable, Runnable {
-    private List<NewLayer> layerList = new ArrayList<>();
+    private List<Layer> layerList = new ArrayList<>();
     private int currentNewLayer;
     private int windowWidth;
     private int windowHeight;
@@ -36,7 +36,7 @@ public class Window implements Drawable, Runnable {
     }
 
     {
-        layerList.add(new NewLayer(this));
+        layerList.add(new Layer(this));
     }
 
     @Override
@@ -138,7 +138,7 @@ public class Window implements Drawable, Runnable {
     //START GET/SET ZONE
     //
 
-    private NewLayer getCurrentLayer() {
+    private Layer getCurrentLayer() {
         return layerList.get(currentNewLayer);
     }
 
