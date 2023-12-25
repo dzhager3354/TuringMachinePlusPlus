@@ -1,6 +1,9 @@
 package ru.dzhager3354.gui.scene;
 
 import org.lwjgl.opengl.GL11;
+import ru.dzhager3354.core.elements.LogicalAnd;
+import ru.dzhager3354.core.elements.Signalable;
+import ru.dzhager3354.core.sheme.SchemeLayer;
 import ru.dzhager3354.gui.Window;
 import ru.dzhager3354.gui.elements.Drawable;
 
@@ -10,6 +13,7 @@ public class Layer implements Drawable {
     private double scale = 2.0/cellScale;
     private double xOffset;
     private double yOffset;
+    private SchemeLayer layer = new SchemeLayer();
 
     private Window window;
 
@@ -51,8 +55,6 @@ public class Layer implements Drawable {
         double cellEndX = Math.ceil(divX);
         double cellEndY = Math.ceil(divY);
 
-        System.out.println(String.format("%f %f %f %f", cellStartX, cellStartY, cellEndX, cellEndY));
-
         GL11.glBegin(GL11.GL_TRIANGLE_FAN);
             GL11.glColor3d(0, 1, 1);
             GL11.glVertex2d(cellStartX, cellStartY);
@@ -60,11 +62,14 @@ public class Layer implements Drawable {
             GL11.glVertex2d(cellEndX, cellEndY);
             GL11.glVertex2d(cellEndX, cellStartY);
         GL11.glEnd();
+//        GL11.glPushMatrix();
+////            GL11.glTranslated(cellStartX, cellStartY, 0);
+//        GL11.glPopMatrix();
     }
 
-    public void startMove(double startX, double startY) {
-        clickXPos = startX;
-        clickYPos = startY;
+    public void startMove() {
+        clickXPos = window.getCursorX();
+        clickYPos = window.getCursorY();
         isMousePressed = true;
     }
 

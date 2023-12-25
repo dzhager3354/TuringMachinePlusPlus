@@ -4,8 +4,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
-import ru.dzhager3354.Square;
-import ru.dzhager3354.core.Line;
+import ru.dzhager3354.Main;
 import ru.dzhager3354.gui.elements.Drawable;
 import ru.dzhager3354.gui.scene.Layer;
 
@@ -21,6 +20,7 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class Window implements Drawable, Runnable {
     private List<Layer> layerList = new ArrayList<>();
+
     private int currentNewLayer;
     private int windowWidth;
     private int windowHeight;
@@ -55,6 +55,7 @@ public class Window implements Drawable, Runnable {
     public void run() {
         init();
         loop();
+        Main.scheme.isRun = false;
 
         glfwFreeCallbacks(windowID);
         glfwDestroyWindow(windowID);
@@ -65,8 +66,6 @@ public class Window implements Drawable, Runnable {
     private void loop() {
         GL.createCapabilities();
         glClearColor(1, 1, 1, 1);
-        Square drawable = new Square(0, 0, 0.5);
-        Line line = new Line(drawable, 1, 1, -1, -1);
         while ( !glfwWindowShouldClose(windowID) ) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -94,10 +93,11 @@ public class Window implements Drawable, Runnable {
         glfwSetMouseButtonCallback(windowID, (window, button, action, mods) -> {
             if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
                 glfwGetCursorPos(window, cursorX, cursorY);
-                getCurrentLayer().startMove(cursorX[0], cursorY[0]);
+                layerList.get(currentNewLayer).startMove();
             }
             else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-                getCurrentLayer().setMousePressed(false);
+                glfwGetCursorPos(window, cursorX, cursorY);
+                layerList.get(currentNewLayer).setMousePressed(false);
             }
         });
 
@@ -132,6 +132,13 @@ public class Window implements Drawable, Runnable {
         glfwSwapInterval(5);
 
         glfwShowWindow(windowID);
+    }
+
+    private boolean isButtonPressed() {
+        double x = cursorX[0];
+        double y = cursorY[0];
+        boolean res = (x < 275 && x > 225 && y > 475);
+        return res;
     }
 
     //
